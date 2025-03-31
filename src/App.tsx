@@ -99,10 +99,14 @@ function App() {
     },
     // DASHBOARD ROUTES
     {
-      path: 'dashboard',
+      path: '/dashboard',
       element: <Dashboard />,
       errorElement: <ErrorPage />,
       children: [
+        {
+          index: true, // Handles the base /dashboard route
+          element: <Profile /> // Default dashboard view
+        },
         {
           path: 'profile',
           element: <Profile />,
@@ -150,7 +154,7 @@ function App() {
       ],
     },
   ], {
-    basename: "/Auto-seat-psv-Client"  // This enables GitHub Pages routing
+    basename: "/Auto-seat-psv-Client"  // GitHub Pages routing
   });
 
   return (
