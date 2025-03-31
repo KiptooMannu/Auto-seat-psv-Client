@@ -1,5 +1,4 @@
 
-import Footer from '../../../../components/Footer/Footer'
 import BookingsPerMonth from './BookingsPerMonth'
 import Overview from './Overview'
 import PaymentStatusChart from './PaymentStatusChart'
@@ -15,7 +14,6 @@ const Analytics = () => {
       <PaymentStatusChart />
       <PopularRoutesChart />
       <RevenueChart />
-      <Footer />
 
     </div>
   )
