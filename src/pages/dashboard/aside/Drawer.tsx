@@ -76,7 +76,7 @@ function SideNav() {
 
   return (
     <>
-      {/* Mobile Menu Toggle Button - Always visible on mobile */}
+      {/* Mobile Menu Toggle Button - Fixed position with higher z-index */}
       <div className="fixed top-4 left-4 z-50 lg:hidden">
         <button
           className="bg-blue-600 text-white p-2 rounded-lg shadow-lg"
