@@ -80,7 +80,7 @@ function SideNav() {
       )}
 
       {/* Persistent arrow indicator */}
-      <div className="fixed left-0 top-1/2 -translate-y-1/2 z-50 lg:hidden">
+      <div className="fixed left-0 top-[calc(2rem+4rem)] z-50 lg:hidden"> {/* Adjusted to appear below navbar */}
         <button
           className={`bg-blue-400 text-white p-2 rounded-lg shadow-lg transition-all duration-300 hover:bg-blue-700 ${
             isOpen ? 'translate-x-64' : 'translate-x-0'
@@ -98,7 +98,7 @@ function SideNav() {
 
       {/* Drawer */}
       <div 
-        className={`fixed left-0 top-0 z-40 h-full w-64 bg-blue-600 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
+        className={`fixed left-0 top-16 z-40 h-[calc(100vh-4rem)] w-64 bg-blue-600 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-[calc(100vh-4rem)] ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
