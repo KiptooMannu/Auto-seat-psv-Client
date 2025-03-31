@@ -76,14 +76,15 @@ function SideNav() {
 
   return (
     <>
-      {/* Mobile Menu Toggle Button - Fixed position with higher z-index */}
-      <div className="fixed top-4 left-4 z-50 lg:hidden">
+      {/* Mobile Menu Toggle Button - Always visible on small screens */}
+      <div className="fixed top-2 left-2 z-50 lg:hidden w-12 h-12">
         <button
-          className="bg-blue-600 text-white p-2 rounded-lg shadow-lg"
+          type="button"
+          className="bg-blue-600 text-white p-3 rounded-lg shadow-xl border-2 border-white w-12 h-12 flex justify-center items-center"
           onClick={toggleDrawer}
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
@@ -109,6 +110,7 @@ function SideNav() {
               <h5 className="text-white font-semibold text-lg">Dashboard</h5>
             </div>
             <button
+              type="button"
               className="text-white hover:text-blue-200 lg:hidden"
               onClick={toggleDrawer}
               aria-label="Close menu"
