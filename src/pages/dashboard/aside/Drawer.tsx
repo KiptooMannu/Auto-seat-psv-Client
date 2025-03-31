@@ -1,5 +1,5 @@
 import { drawerData } from "../../../components/Drawer/drawerData";
-import { LayoutDashboard, ChevronsRight, ChevronsLeft, X } from "lucide-react";
+import { LayoutDashboard, X, Menu } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { store } from "../../../app/store";
 import { useState, useEffect } from "react";
@@ -46,18 +46,23 @@ function SideNav() {
 
   // Close drawer when clicking outside
   const handleClickOutside = () => {
-    if (isOpen && window.innerWidth < 1024) {
+    if (isOpen) {
       setIsOpen(false);
     }
   };
 
-  // Handle window resize
+  // Handle window resize - keep drawer open on large screens
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
+        setIsOpen(true);
+      } else {
         setIsOpen(false);
       }
     };
+
+    // Initial check
+    handleResize();
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -71,34 +76,28 @@ function SideNav() {
 
   return (
     <>
+      {/* Mobile Menu Toggle Button - Always visible on mobile */}
+      <div className="fixed top-4 left-4 z-50 lg:hidden">
+        <button
+          className="bg-blue-600 text-white p-2 rounded-lg shadow-lg"
+          onClick={toggleDrawer}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
       {/* Overlay for mobile */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-blue-900 bg-opacity-30 z-30 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={handleClickOutside}
         />
       )}
 
-      {/* Persistent arrow indicator */}
-      <div className="fixed left-0 top-1/2 -translate-y-1/2 z-50 lg:hidden">
-        <button
-          className={`bg-blue-400 text-white p-2 rounded-lg shadow-lg transition-all duration-300 hover:bg-blue-700 ${
-            isOpen ? 'translate-x-64' : 'translate-x-0'
-          }`}
-          onClick={toggleDrawer}
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
-        >
-          {isOpen ? (
-            <ChevronsLeft size={24} />
-          ) : (
-            <ChevronsRight size={24} />
-          )}
-        </button>
-      </div>
-
       {/* Drawer */}
       <div 
-        className={`fixed left-0 top-0 z-40 h-full w-64 bg-blue-600 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-blue-600 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -148,6 +147,9 @@ function SideNav() {
           </div>
         </div>
       </div>
+
+      {/* Content Spacing for Desktop */}
+      <div className="lg:ml-64 transition-all duration-300"></div>
     </>
   );
 }
