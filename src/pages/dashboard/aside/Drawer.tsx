@@ -102,7 +102,7 @@ function SideNav() {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="flex flex-col h-full">
+        <div className="h-full flex flex-col">
           {/* Drawer Header */}
           <div className="flex items-center justify-between p-4 border-b border-blue-500">
             <div className="flex items-center space-x-2">
