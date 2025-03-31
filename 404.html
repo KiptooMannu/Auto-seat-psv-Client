@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Redirecting...</title>
     <script>
-      sessionStorage.redirect = location.pathname;
-      window.location.href = '/Auto-seat-psv-Client' + 
-        window.location.pathname + 
-        window.location.search;
+      const repoPath = '/Auto-seat-psv-Client';
+      const path = window.location.pathname;
+      
+      // Fix double paths
+      if (path.startsWith(repoPath + repoPath)) {
+        window.location.pathname = repoPath + path.slice(repoPath.length * 2);
+      } 
+      // Add base path if missing
+      else if (!path.startsWith(repoPath)) {
+        window.location.pathname = repoPath + path;
+      }
+      // Normal case
+      else {
+        window.location.href = path;
+      }
     </script>
   </head>
   <body>
-    Redirecting to the app...
+    Redirecting...
   </body>
 </html>
