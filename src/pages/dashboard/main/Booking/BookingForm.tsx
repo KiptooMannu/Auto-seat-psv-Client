@@ -77,12 +77,12 @@ const BookingForm: React.FC = () => {
   if (isError) return <p className="text-center text-red-500">Failed to load vehicles. Please try again later.</p>;
 
   return (
-    <div className="overflow-x-auto bg-gradient-to-r from-blue-50 via-blue-800 to-white min-h-screen shadow-lg">
+    <div className="overflow-x-auto bg-gradient-to-r from-blue-50 via-blue-800 to-white min-h-screen w-full">
       <h1 className="text-xl font-bold text-webcolor text-center p-2">Book Now!!!</h1>
 
-      {/* Filters Section - Responsive */}
-      <div className="w-full max-w-5xl mx-auto mb-4 p-4">
-        <form className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 bg-white p-4 rounded-lg shadow-md">
+      {/* Filters Section - Full width, no padding */}
+      <div className="w-full mx-0">
+        <form className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 bg-white p-2 rounded-lg shadow-md">
           <div>
             <label htmlFor="departure" className="block text-sm font-medium">Departure:</label>
             <select id="departure" value={departure} onChange={(e) => setDeparture(e.target.value)}
@@ -137,12 +137,12 @@ const BookingForm: React.FC = () => {
         </form>
       </div>
 
-      {/* Vehicle List */}
-      <div className="space-y-4 p-4">
+      {/* Vehicle List - Full width, minimal padding */}
+      <div className="w-full p-0 space-y-2">
         {filteredVehicles.length ? (
-          <div className="flex flex-col items-center w-full px-4">
+          <div className="flex flex-col items-center w-full px-0">
             {/* Pagination Arrows */}
-            <div className="flex justify-between w-full max-w-5xl px-4 mb-2">
+            <div className="flex justify-between w-full px-2 mb-2">
               <button
                 onClick={prevPage}
                 disabled={currentPage === 0}
@@ -160,15 +160,15 @@ const BookingForm: React.FC = () => {
               </button>
             </div>
 
-            {/* Vehicle Grid - Responsive */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-5xl">
+            {/* Vehicle Grid - Full width, minimal gap */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full">
               {displayedVehicles.map((vehicle, index) => {
                 const remainingSeats = Math.max((vehicle.capacity - 1) - (Number(vehicle.booked_Seats) || 0), 0);
 
                 return (
                   <div
                     key={`${vehicle.registration_number}-${index}`}
-                    className={`card bg-blue-200 shadow-md rounded-lg p-4 transform transition-all duration-300 hover:scale-105 ${
+                    className={`card bg-blue-200 shadow-md rounded-lg p-2 transform transition-all duration-300 hover:scale-105 ${
                       selectedVehicle?.registration_number === vehicle.registration_number
                         ? "border-2 border-webcolor"
                         : "border border-gray-200"
