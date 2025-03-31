@@ -21,12 +21,6 @@ export type DrawerData = {
 // adminOnly true - show only to admins 
 export const drawerData: DrawerData[] = [
     {
-        id: 0,
-        name: 'Dashboard',
-        icon: LayoutDashboard,
-        link: '/dashboard',
-        adminOnly: false
-    },
     {
         id: 1,
         name: 'Profile',
