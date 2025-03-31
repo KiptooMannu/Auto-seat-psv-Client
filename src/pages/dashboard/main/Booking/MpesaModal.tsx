@@ -52,7 +52,7 @@ const MpesaPaymentModal: React.FC<MpesaPaymentModalProps> = ({
     });
   
     try {
-      const response = await fetch("https://backenc-automated-psvbs-deployment.onrender.com/mpesa/stkpush", {
+      const response = await fetch("https://automatedseatservation-amhqc6atf9bxfzgq.southafricanorth-01.azurewebsites.net/mpesa/stkpush", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ const MpesaPaymentModal: React.FC<MpesaPaymentModalProps> = ({
       }
 
       const statusResponse = await fetch(
-        `https://backenc-automated-psvbs-deployment.onrender.com/payment-status?checkout_request_id=${checkoutRequestID}`
+        `https://automatedseatservation-amhqc6atf9bxfzgq.southafricanorth-01.azurewebsites.net/payment-status?checkout_request_id=${checkoutRequestID}`
       );
 
       if (!statusResponse.ok) {
