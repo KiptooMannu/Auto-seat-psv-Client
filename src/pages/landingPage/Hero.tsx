@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import './Hero.scss';
 const Hero = () => {
     const user = useSelector((state: RootState) => state.user);
     const name = user.user?.first_name;
-
+    const navigate = useNavigate();
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
@@ -35,20 +35,20 @@ const Hero = () => {
                 >
                     {/* Heading */}
                     <h1 className="mb-6 mt-4 text-3xl lg:text-5xl font-bold text-white text-shadow-lg">
-    Welcome to {' '}
-    <span className="text-webcolor">
-    Automated Public Service Vehicle 
-    </span>
-    <br />
-    <span className="text-webcolor">
-    Seat Booking System
-    </span>
-    {name && (
-        <span className="block text-xl mt-2">
-            {name}!
-        </span>
-    )}
-</h1>
+                        Welcome to {' '}
+                        <span className="text-webcolor">
+                            Automated Public Service Vehicle 
+                        </span>
+                        <br />
+                        <span className="text-webcolor">
+                            Seat Booking System
+                        </span>
+                        {name && (
+                            <span className="block text-xl mt-2">
+                                {name}!
+                            </span>
+                        )}
+                    </h1>
 
                     {/* Description */}
                     <p className="mt-4 mb-6 text-lg lg:text-xl text-white max-w-2xl px-4">
@@ -60,27 +60,24 @@ const Hero = () => {
 
                     {/* Book Now Button */}
                     <motion.div
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-    className="mt-4"
->
-
-<button
-  onClick={() => {
-    if (user?.user?.user_id) {
-      window.location.href = "/Auto-seat-psv-Client/dashboard/booking_form";
-    } else {
-      alert("You must log in first to book a seat!");
-      window.location.href = "/Auto-seat-psv-Client/login";
-    }
-  }}
-  className="btn text-white hover:text-black bg-orange-700 hover:bg-orange-600 transition-all duration-300 px-8 py-3 rounded-full text-lg lg:text-xl"
->
-  Book Now!!
-</button>
-                        
-</motion.div>
-
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="mt-4"
+                    >
+                        <button
+                            onClick={() => {
+                                if (user?.user?.user_id) {
+                                    navigate('/dashboard/booking_form');
+                                } else {
+                                    alert("You must log in first to book a seat!");
+                                    navigate('/login');
+                                }
+                            }}
+                            className="btn text-white hover:text-black bg-orange-700 hover:bg-orange-600 transition-all duration-300 px-8 py-3 rounded-full text-lg lg:text-xl"
+                        >
+                            Book Now!!
+                        </button>
+                    </motion.div>
 
                     {/* Links */}
                     <div className="mt-8 flex justify-center gap-6">
