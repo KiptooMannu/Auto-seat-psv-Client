@@ -6,21 +6,18 @@ import {
   Car, 
   Users, 
   Archive, 
-  LogOut,
-  LayoutDashboard
+  LogOut
 } from "lucide-react";
 
 export type DrawerData = {
     id: number;
     name: string;
-    icon?: undefined | any;
+    icon?: any;
     link: string;
     adminOnly: boolean;
-}
-// adminOnly false - show to all users
-// adminOnly true - show only to admins 
+};
+
 export const drawerData: DrawerData[] = [
-    {
     {
         id: 1,
         name: 'Profile',
