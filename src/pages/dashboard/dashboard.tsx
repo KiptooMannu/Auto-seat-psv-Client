@@ -9,13 +9,29 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <ProtectedRoute>
-        <div className="flex flex-row flex-grow">
-          <div className="hidden md:block min-w-fit">
+        <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)]"> {/* Adjusted for navbar height */}
+          {/* Sidebar - hidden on mobile, fixed width on desktop */}
+          <div className="hidden lg:block lg:w-64 flex-shrink-0 bg-blue-950">
+            <div className="fixed w-64">
+              <Drawer />
+            </div>
+          </div>
+          
+          {/* Mobile Drawer - will be handled by the Drawer component */}
+          <div className="lg:hidden">
             <Drawer />
           </div>
-          <div className="flex flex-col flex-grow p-6 bg-white rounded-lg shadow-sm m-4">
-            <div className="bg-white rounded-lg p-6">
-              <Outlet />
+          
+          {/* Main content area */}
+          <div className="flex-1 min-w-0 w-full lg:max-w-[calc(100vw-16rem)]"> {/* Adjusted max width accounting for sidebar */}
+            <div className="p-2 sm:p-3 lg:p-4">
+              <div className="bg-white rounded-lg shadow-sm">
+                <div className="max-w-full overflow-x-auto">
+                  <div className="p-2 sm:p-3 lg:p-4">
+                    <Outlet />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
