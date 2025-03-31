@@ -22,7 +22,7 @@ import Login from './pages/auth/Login';
 import VerificationNotice from './pages/auth/VerificationNotice';
 import VerifyAccountPage from './pages/auth/VerifyAccountPage';
 import ArchivedBookings from './components/ArchivedBookings/ArchivedBookings';
-import Users from './components/Users/Users'; // Import the Users component
+import Users from './components/Users/Users';
 import ForgotPassword from './pages/auth/Forgotpassword';
 
 function App() {
@@ -144,16 +144,17 @@ function App() {
           element: <ArchivedBookings />,
         },
         {
-          path: 'users', // New route for user management
+          path: 'users',
           element: <Users />,
         },
       ],
     },
-  ]);
+  ], {
+    basename: "/Auto-seat-psv-Client"  // This enables GitHub Pages routing
+  });
 
   return (
     <>
-      {/* Toast Container */}
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -164,9 +165,8 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        style={{ zIndex: 9999 }} // Ensure it's on top
+        style={{ zIndex: 9999 }}
       />
-      {/* Router Provider */}
       <RouterProvider router={router} />
     </>
   );
