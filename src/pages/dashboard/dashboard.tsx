@@ -6,18 +6,23 @@ import ProtectedRoute from "../../pages/auth/Protectedroute";
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       <ProtectedRoute>
-        <div className="flex flex-row flex-grow">
-          <div className="hidden md:block min-w-fit">
+        <div className="flex flex-1">
+          {/* Sidebar - Fixed width for desktop, hidden on mobile */}
+          <aside className="hidden md:block w-64 min-h-[calc(100vh-4rem)] bg-blue-600 fixed top-16 left-0 z-20">
             <Drawer />
-          </div>
-          <div className="flex flex-col flex-grow p-6 bg-white rounded-lg shadow-sm m-4">
-            <div className="bg-white rounded-lg p-6">
-              <Outlet />
+          </aside>
+
+          {/* Main Content - Adjusts margin for sidebar on desktop */}
+          <main className="flex-1 md:ml-64 mt-16">
+            <div className="p-4 md:p-6">
+              <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+                <Outlet />
+              </div>
             </div>
-          </div>
+          </main>
         </div>
       </ProtectedRoute>
       <Footer />
