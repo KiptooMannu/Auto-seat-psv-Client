@@ -1,52 +1,31 @@
 import { useEffect, useState } from 'react';
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts';
-import { bookingVehicleAPI, Tbooking } from '../../../../features/booking/bookingAPI';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { bookingVehicleAPI } from '../../../../features/booking/bookingAPI';
 
-interface ChartData {
+interface RouteData {
     name: string;
     bookings: number;
-    monthOrder: number;
 }
 
-const BookingsPerMonth = () => {
+const PopularRoutesChart = () => {
     const { data: bookings } = bookingVehicleAPI.useGetBookingVehicleQuery();
-    const [chartData, setChartData] = useState<ChartData[]>([]);
+    const [chartData, setChartData] = useState<RouteData[]>([]);
 
     useEffect(() => {
         if (bookings) {
-            const bookingsByMonth = new Map<string, { count: number; monthOrder: number }>();
-            
-            const currentDate = new Date();
-            const twelveMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 11, 1);
+            const routeCount = bookings.reduce((acc: { [key: string]: number }, booking) => {
+                const route = `${booking.departure} → ${booking.destination}`;
+                acc[route] = (acc[route] || 0) + 1;
+                return acc;
+            }, {});
 
-            bookings.forEach((booking: Tbooking) => {
-                const bookingDate = new Date(booking.booking_date);
-                
-                if (bookingDate >= twelveMonthsAgo) {
-                    const monthYear = bookingDate.toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'short'
-                    });
-                    
-                    const monthOrder = (bookingDate.getFullYear() * 100) + (bookingDate.getMonth() + 1);
-
-                    if (!bookingsByMonth.has(monthYear)) {
-                        bookingsByMonth.set(monthYear, { count: 1, monthOrder });
-                    } else {
-                        const current = bookingsByMonth.get(monthYear)!;
-                        bookingsByMonth.set(monthYear, { 
-                            count: current.count + 1,
-                            monthOrder: current.monthOrder
-                        });
-                    }
-                }
-            });
-
-            const data = Array.from(bookingsByMonth, ([name, { count, monthOrder }]) => ({
-                name,
-                bookings: count,
-                monthOrder
-            })).sort((a, b) => a.monthOrder - b.monthOrder);
+            const data = Object.entries(routeCount)
+                .map(([name, bookings]) => ({
+                    name,
+                    bookings
+                }))
+                .sort((a, b) => b.bookings - a.bookings)
+                .slice(0, 10); // Show top 10 routes
 
             setChartData(data);
         }
@@ -55,7 +34,7 @@ const BookingsPerMonth = () => {
     return (
         <div className='bg-gray-100 p-6 rounded-lg shadow-lg'>
             <div className='bg-white p-6 rounded-lg shadow-md'>
-                <h2 className="text-2xl font-bold text-gray-700 text-center mb-4">Seat Reservations Over Time</h2>
+                <h2 className="text-2xl font-bold text-gray-700 text-center mb-4">Top 10 Popular Routes</h2>
                 {chartData.length > 0 ? (
                     <div className='w-full h-80'>
                         <ResponsiveContainer width="100%" height="100%">
@@ -81,7 +60,7 @@ const BookingsPerMonth = () => {
                                 <Legend />
                                 <Bar 
                                     dataKey="bookings" 
-                                    name="Monthly Bookings"
+                                    name="Number of Bookings"
                                     fill="#4f46e5" 
                                     barSize={50} 
                                     radius={[4, 4, 0, 0]} 
@@ -91,7 +70,7 @@ const BookingsPerMonth = () => {
                     </div>
                 ) : (
                     <div className="text-center text-gray-500 py-10">
-                        No booking data available
+                        No route data available
                     </div>
                 )}
             </div>
@@ -99,4 +78,4 @@ const BookingsPerMonth = () => {
     );
 };
 
-export default BookingsPerMonth;
+export default PopularRoutesChart;

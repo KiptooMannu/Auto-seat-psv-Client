@@ -1,4 +1,14 @@
-import { BarChart, Book, User, Car } from "lucide-react";
+import { 
+  BarChart, 
+  UserCircle, 
+  ClipboardList, 
+  CalendarCheck, 
+  Car, 
+  Users, 
+  Archive, 
+  LogOut,
+  LayoutDashboard
+} from "lucide-react";
 
 export type DrawerData = {
     id: number;
@@ -10,69 +20,74 @@ export type DrawerData = {
 // adminOnly false - show to all users
 // adminOnly true - show only to admins 
 export const drawerData: DrawerData[] = [
-
     {
-        id: 4,
+        id: 0,
+        name: 'Dashboard',
+        icon: LayoutDashboard,
+        link: 'dashboard',
+        adminOnly: false
+    },
+    {
+        id: 1,
         name: 'Profile',
-        icon: User,
+        icon: UserCircle,
         link: 'profile',
         adminOnly: false
     },
     {
-        id: 0,
+        id: 2,
         name: 'Analytics',
         icon: BarChart,
         link: 'analytics',
         adminOnly: false
     },
     {
-        id: 1,
+        id: 3,
         name: 'All Bookings',
-        icon: Book,
+        icon: ClipboardList,
         link: 'view_all_bookings',
         adminOnly: true
     },
     {
-        id: 2,
-        name: 'Book Now ✔ ',
-        icon: Book,
+        id: 4,
+        name: 'Book Now',
+        icon: CalendarCheck,
         link: 'booking_form',
         adminOnly: false
     },
     {
-        id: 3,
+        id: 5,
         name: 'My Bookings',
-        icon: Book,
+        icon: ClipboardList,
         link: 'my_bookings',
         adminOnly: false
     },
-  
     {
-        id: 5,
+        id: 6,
         name: 'Manage Vehicles',
         icon: Car,
         link: 'vehicles',
         adminOnly: true
     },
-    // {
-    //     id: 6,
-    //     name: 'Payments',
-    //     icon: CreditCard,
-    //     link: 'payments',
-    //     adminOnly: true
-    // },
+    {
+        id: 7,
+        name: 'Manage Users',
+        icon: Users,
+        link: 'users',
+        adminOnly: true
+    },
     {
         id: 8,
-        name: 'Manage Users',
-        icon: User,
-        link: 'users',
-        adminOnly: true,
-      },
-    {
-        id: 9, // Unique ID
         name: 'Archived Bookings',
-        icon: Book, // You can use a different icon if needed
+        icon: Archive,
         link: 'archived_bookings',
-        adminOnly: true // Only admins can see this
+        adminOnly: true
     },
-]
+    {
+        id: 9,
+        name: 'Log Out',
+        icon: LogOut,
+        link: '#',
+        adminOnly: false
+    }
+];

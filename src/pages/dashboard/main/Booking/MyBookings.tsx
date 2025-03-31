@@ -210,9 +210,12 @@ function MyBookings() {
                         </button>
                         <button
                           onClick={() => handleDownloadReceipt(booking)}
-                          className="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300 text-xs"
+                          className={`bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300 text-xs relative group ${
+                            booking.payment_status === "failed" || booking.payment_status === "pending" ? "cursor-not-allowed" : ""
+                          }`}
                           aria-label="Download receipt"
-                          disabled={isDownloading === booking.booking_id}
+                          disabled={isDownloading === booking.booking_id || booking.payment_status === "failed" || booking.payment_status === "pending"}
+                          title={booking.payment_status === "failed" || booking.payment_status === "pending" ? "Ticket can only be downloaded after successful payment" : ""}
                         >
                           {isDownloading === booking.booking_id ? "Generating..." : "Download Ticket"}
                         </button>
