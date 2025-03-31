@@ -68,11 +68,11 @@ const Hero = () => {
         onClick={() => {
             if (user?.user?.user_id) {
                 // ✅ User is logged in, navigate to booking form
-                window.location.href = "/Auto-seat-psv-Client/dashboard/booking_form";
+                window.location.href = "/dashboard/booking_form";
             } else {
                 // ❌ User is NOT logged in, show an alert or redirect to login
                 alert("You must log in first to book a seat!");
-                window.location.href = "/Auto-seat-psv-Client/login"; // Redirect to login page
+                window.location.href = "/login"; // Redirect to login page
             }
         }}
         className="btn text-white hover:text-black bg-orange-700 hover:bg-orange-600 transition-all duration-300 px-8 py-3 rounded-full text-lg lg:text-xl"
