@@ -1,5 +1,7 @@
 import { drawerData } from "../../../components/Drawer/drawerData";
-import { LayoutDashboard, ChevronsRight, ChevronsLeft, X } from "lucide-react";
+import { LayoutDashboard,
+  //  ChevronsRight, ChevronsLeft,
+    X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { store } from "../../../app/store";
 import { useState, useEffect } from "react";
@@ -79,26 +81,20 @@ function SideNav() {
         />
       )}
 
-      {/* Persistent arrow indicator */}
-      <div className="fixed left-0 top-1/2 -translate-y-1/2 z-50 lg:hidden">
+      {/* Mobile Menu Toggle Button - adjusted position */}
+      <div className="fixed right-4 top-16 z-50 lg:hidden">
         <button
-          className={`bg-blue-400 text-white p-2 rounded-lg shadow-lg transition-all duration-300 hover:bg-blue-700 ${
-            isOpen ? 'translate-x-64' : 'translate-x-0'
-          }`}
+          className="bg-blue-600 text-white p-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
           onClick={toggleDrawer}
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-label="Toggle Menu"
         >
-          {isOpen ? (
-            <ChevronsLeft size={24} />
-          ) : (
-            <ChevronsRight size={24} />
-          )}
+          <LayoutDashboard size={24} />
         </button>
       </div>
 
       {/* Drawer */}
       <div 
-        className={`fixed left-0 top-0 z-40 h-full w-64 bg-blue-600 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
+        className={`fixed left-0 top-0 z-40 h-full w-1/2 lg:w-64 bg-blue-950 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -120,25 +116,25 @@ function SideNav() {
 
           {/* Drawer Content */}
           <div className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {drawerData.filter(filterDrawerItems).map((item) => (
                 <li key={item.id}>
                   {item.name === 'Log Out' ? (
                     <button
                       type="button"
                       onClick={handleLogOut}
-                      className="w-full text-left text-white hover:bg-blue-700 block px-3 py-2 rounded-md transition-colors duration-200"
+                      className="w-full text-left text-white hover:bg-blue-700 block px-4 py-3 rounded-md transition-colors duration-200 text-base lg:text-sm"
                     >
-                      {item.icon && <item.icon className="inline-block mr-2" size={20} />}
+                      {item.icon && <item.icon className="inline-block mr-3" size={24} />}
                       {item.name}
                     </button>
                   ) : (
                     <Link
                       to={item.link}
-                      className="text-white hover:bg-blue-700 block px-3 py-2 rounded-md transition-colors duration-200"
+                      className="text-white hover:bg-blue-700 block px-4 py-3 rounded-md transition-colors duration-200 text-base lg:text-sm"
                       onClick={() => window.innerWidth < 1024 && setIsOpen(false)}
                     >
-                      {item.icon && <item.icon className="inline-block mr-2" size={20} />}
+                      {item.icon && <item.icon className="inline-block mr-3" size={24} />}
                       {item.name}
                     </Link>
                   )}
