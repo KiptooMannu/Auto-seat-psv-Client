@@ -103,10 +103,7 @@ function App() {
       element: <Dashboard />,
       errorElement: <ErrorPage />,
       children: [
-        {
-          index: true, // Handles the base /dashboard route
-          element: <Profile /> // Default dashboard view
-        },
+      
         {
           path: 'profile',
           element: <Profile />,
