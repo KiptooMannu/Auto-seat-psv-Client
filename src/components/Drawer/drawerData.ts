@@ -24,7 +24,7 @@ export const drawerData: DrawerData[] = [
         id: 0,
         name: 'Dashboard',
         icon: LayoutDashboard,
-        link: 'dashboard',
+        link: '/dashboard',
         adminOnly: false
     },
     {
