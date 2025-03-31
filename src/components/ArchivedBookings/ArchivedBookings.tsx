@@ -74,10 +74,10 @@ const handleDeleteArchivedBooking = async (bookingId: number) => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen p-4 sm:p-8">
+    <div className="bg-gray-50 min-h-screen p-2 sm:p-4 lg:p-8">
       <ToastContainer />
-      <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <h2 className="text-2xl font-bold text-center text-gray-900 py-6 bg-gray-100">
+      <div className="max-w-full mx-auto bg-white rounded-lg shadow-lg">
+        <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-900 py-4 sm:py-6 bg-gray-100">
           Archived Bookings
         </h2>
 
@@ -86,68 +86,67 @@ const handleDeleteArchivedBooking = async (bookingId: number) => {
         ) : archivedBookings.length === 0 ? (
           <div className="text-center text-gray-400 py-8">No archived bookings found.</div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full bg-white">
+          <div className="overflow-x-auto relative">
+            {/* Scroll indicator for mobile */}
+            <div className="lg:hidden text-sm text-gray-500 text-center py-2">
+              Scroll horizontally to view more →
+            </div>
+            
+            <table className="w-full bg-white table-auto">
               <thead className="bg-gray-800 text-white">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Archive ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Booking ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">User ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Vehicle ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Departure</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Destination</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Departure Date</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Price</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Total Price</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Booking Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Payment Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Archived By</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Archived At</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium uppercase">Actions</th>
+                  <th className="sticky left-0 bg-gray-800 px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase">ID</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Booking ID</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">User ID</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Vehicle</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">From → To</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Departure Date</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Price</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Status</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Payment</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Archived By</th>
+                  <th className="px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase whitespace-nowrap">Archived At</th>
+                  <th className="sticky right-0 bg-gray-800 px-4 py-3 text-left text-xs sm:text-sm font-medium uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {archivedBookings.map((booking: ArchivedBooking) => (
                   <tr key={booking.archive_id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.archive_id}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.booking_id}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.user_id}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.vehicle_id}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.departure}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.destination}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">
-                      {new Date(booking.departure_date).toLocaleString()}
+                    <td className="sticky left-0 bg-white px-4 py-3 text-xs sm:text-sm text-gray-700">{booking.archive_id}</td>
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">{booking.booking_id}</td>
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">{booking.user_id}</td>
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">{booking.vehicle_id}</td>
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">
+                      {booking.departure} → {booking.destination}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.price}</td>
-                    <td className="px-4 py-3 text-sm text-gray-700">{booking.total_price}</td>
-                    <td className="px-4 py-3 text-sm">
-                      <span
-                        className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
-                          booking.booking_status
-                        )}`}
-                      >
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">
+                      {new Date(booking.departure_date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">
+                      KSh {booking.total_price}
+                    </td>
+                    <td className="px-4 py-3 text-xs sm:text-sm whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(booking.booking_status)}`}>
                         {booking.booking_status || "N/A"}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-sm">
-                      <span
-                        className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
-                          booking.payment_status
-                        )}`}
-                      >
+                    <td className="px-4 py-3 text-xs sm:text-sm whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(booking.payment_status)}`}>
                         {booking.payment_status || "N/A"}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-700">
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">
                       {booking.archived_by_first_name || "Unknown"}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-700">
-                      {new Date(booking.archived_at).toLocaleString()}
+                    <td className="px-4 py-3 text-xs sm:text-sm text-gray-700 whitespace-nowrap">
+                      {new Date(booking.archived_at).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-3 text-sm">
+                    <td className="sticky right-0 bg-white px-4 py-3 text-xs sm:text-sm">
                       <button
                         onClick={() => handleDeleteArchivedBooking(booking.booking_id)}
-                        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
+                        className="bg-red-500 text-white px-3 py-1.5 rounded-md hover:bg-red-600 
+                        transition-colors text-xs sm:text-sm whitespace-nowrap
+                        hover:shadow-md active:transform active:scale-95"
                       >
                         Delete
                       </button>
