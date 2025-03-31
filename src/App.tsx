@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/Navbar/Navbar';
@@ -26,7 +26,8 @@ import Users from './components/Users/Users';
 import ForgotPassword from './pages/auth/Forgotpassword';
 
 function App() {
-  const router = createBrowserRouter([
+  // Use HashRouter instead of BrowserRouter for GitHub Pages
+  const router = createHashRouter([
     {
       path: '/',
       element: <HomePage />,
@@ -103,7 +104,6 @@ function App() {
       element: <Dashboard />,
       errorElement: <ErrorPage />,
       children: [
-      
         {
           path: 'profile',
           element: <Profile />,
@@ -150,9 +150,7 @@ function App() {
         },
       ],
     },
-  ], {
-    basename: "/Auto-seat-psv-Client"  // GitHub Pages routing
-  });
+  ]);
 
   return (
     <>
