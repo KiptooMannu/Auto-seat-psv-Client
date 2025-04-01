@@ -48,8 +48,8 @@ const Dashboard = () => {
           )}
 
           {/* Scrollable Content Area */}
-          <div className="flex-1 lg:ml-64 overflow-y-auto pb-16">
-            <div className="p-4 min-h-[calc(100vh-8rem)]">
+          <div className="flex-1 lg:ml-64 overflow-y-auto">
+            <div className="p-4 min-h-[calc(100vh-8rem)] pb-16"> {/* Added pb-16 for footer space */}
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="p-4">
                   <Outlet />
@@ -59,8 +59,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Fixed Footer */}
-        <div className="lg:ml-64 fixed bottom-0 w-full lg:w-[calc(100%-16rem)] bg-gray-800">
+        {/* Fixed Footer - Now properly aligned */}
+        <div className="lg:ml-64 w-full lg:w-[calc(100%-16rem)] bg-gray-800 relative z-10">
           <Footer />
         </div>
       </ProtectedRoute>
