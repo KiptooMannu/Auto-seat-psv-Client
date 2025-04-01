@@ -1,4 +1,5 @@
-import Footer from "../../components/Footer/Footer";
+// src/pages/dashboard/dashboard.tsx
+import { Footer } from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import Drawer from "./aside/Drawer";
@@ -49,7 +50,7 @@ const Dashboard = () => {
 
           {/* Scrollable Content Area */}
           <div className="flex-1 lg:ml-64 overflow-y-auto">
-            <div className="p-4 min-h-[calc(100vh-8rem)] mb-16"> {/* Added mb-16 for footer space */}
+            <div className="p-4 min-h-[calc(100vh-8rem)] mb-16">
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="p-4">
                   <Outlet />
@@ -59,7 +60,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Fixed Footer */}
+        {/* Footer */}
         <div className="lg:ml-64 w-full lg:w-[calc(100%-16rem)] bg-gray-800">
           <Footer />
         </div>
