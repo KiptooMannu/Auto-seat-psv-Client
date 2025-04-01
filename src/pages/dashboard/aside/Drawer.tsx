@@ -1,12 +1,13 @@
+import { FC } from 'react';
 import { drawerData } from "../../../components/Drawer/drawerData";
 import { LayoutDashboard,
   //  ChevronsRight, ChevronsLeft,
     X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { store } from "../../../app/store";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../app/store";
+import { logOut } from "../../../features/users/userSlice";
 
 type DrawerData = {
   id: string | number;
@@ -16,9 +17,13 @@ type DrawerData = {
   adminOnly?: boolean;
 };
 
-function SideNav() {
+interface DrawerProps {
+  onToggle: () => void;
+}
+
+const Drawer: FC<DrawerProps> = ({ onToggle }) => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
   const [isAdmin, setIsAdmin] = useState(false);
   const user = useSelector((state: RootState) => state.user);
 
@@ -42,110 +47,61 @@ function SideNav() {
     }
   };
 
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Close drawer when clicking outside
-  const handleClickOutside = () => {
-    if (isOpen && window.innerWidth < 1024) {
-      setIsOpen(false);
-    }
-  };
-
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   const handleLogOut = () => {
-    store.dispatch({ type: 'persist/PURGE', result: () => null, key: 'user-auth' });
-    store.getState().user.token = null;
+    dispatch(logOut());
+    localStorage.removeItem("user");
     navigate('/login');
   };
 
   return (
-    <>
-      {/* Overlay for mobile */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-blue-900 bg-opacity-30 z-30 lg:hidden"
-          onClick={handleClickOutside}
-        />
-      )}
-
-      {/* Mobile Menu Toggle Button - adjusted position */}
-      <div className="fixed right-4 top-16 z-50 lg:hidden">
-        <button
-          className="bg-blue-600 text-white p-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
-          onClick={toggleDrawer}
-          aria-label="Toggle Menu"
+    <div className="h-full flex flex-col text-white">
+      {/* Drawer Header */}
+      <div className="p-4 flex items-center justify-between border-b border-blue-800">
+        <h2 className="text-xl font-semibold">Menu</h2>
+        <button 
+          onClick={onToggle}
+          className="lg:hidden p-2 hover:bg-blue-800 rounded-md transition-colors"
         >
-          <LayoutDashboard size={24} />
+          <X className="w-6 h-6" />
         </button>
       </div>
 
-      {/* Drawer */}
-      <div 
-        className={`fixed left-0 top-0 z-40 h-full w-1/2 lg:w-64 bg-blue-950 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="flex flex-col h-full">
-          {/* Drawer Header */}
-          <div className="flex items-center justify-between p-4 border-b border-blue-500">
-            <div className="flex items-center space-x-2">
-              <LayoutDashboard className="text-white" size={24} />
-              <h5 className="text-white font-semibold text-lg">Dashboard</h5>
-            </div>
-            <button
-              className="text-white hover:text-blue-200 lg:hidden"
-              onClick={toggleDrawer}
-              aria-label="Close menu"
-            >
-              <X size={24} />
-            </button>
-          </div>
-
-          {/* Drawer Content */}
-          <div className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-3">
-              {drawerData.filter(filterDrawerItems).map((item) => (
-                <li key={item.id}>
-                  {item.name === 'Log Out' ? (
-                    <button
-                      type="button"
-                      onClick={handleLogOut}
-                      className="w-full text-left text-white hover:bg-blue-700 block px-4 py-3 rounded-md transition-colors duration-200 text-base lg:text-sm"
-                    >
-                      {item.icon && <item.icon className="inline-block mr-3" size={24} />}
-                      {item.name}
-                    </button>
-                  ) : (
-                    <Link
-                      to={item.link}
-                      className="text-white hover:bg-blue-700 block px-4 py-3 rounded-md transition-colors duration-200 text-base lg:text-sm"
-                      onClick={() => window.innerWidth < 1024 && setIsOpen(false)}
-                    >
-                      {item.icon && <item.icon className="inline-block mr-3" size={24} />}
-                      {item.name}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </>
+      {/* Drawer Items */}
+      <nav className="flex-1 overflow-y-auto">
+        <ul className="px-2 py-4 space-y-1 list-none">
+          <li>
+            <Link to="/dashboard" className="flex items-center px-4 py-3 text-white hover:bg-blue-800 rounded-md transition-colors">
+              <LayoutDashboard className="w-5 h-5 mr-3" />
+              <span>Dashboard</span>
+            </Link>
+          </li>
+          {/* Add more menu items here */}
+          {drawerData.filter(filterDrawerItems).map((item) => (
+            <li key={item.id}>
+              {item.name === 'Log Out' ? (
+                <button
+                  type="button"
+                  onClick={handleLogOut}
+                  className="w-full text-left text-white hover:bg-blue-700 block px-4 py-3 rounded-md transition-colors duration-200 text-base lg:text-sm"
+                >
+                  {item.icon && <item.icon className="inline-block mr-3" size={24} />}
+                  {item.name}
+                </button>
+              ) : (
+                <Link
+                  to={item.link}
+                  className="text-white hover:bg-blue-700 block px-4 py-3 rounded-md transition-colors duration-200 text-base lg:text-sm"
+                >
+                  {item.icon && <item.icon className="inline-block mr-3" size={24} />}
+                  {item.name}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
-}
+};
 
-export default SideNav;
+export default Drawer;
