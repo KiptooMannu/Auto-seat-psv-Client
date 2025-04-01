@@ -10,10 +10,12 @@ const Dashboard = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Navbar (fixed at top) */}
       <Navbar />
+
       <ProtectedRoute>
-        {/* Mobile Toggle Button (fixed below navbar) */}
+        {/* Mobile Toggle Button */}
         <button
           onClick={() => setIsDrawerOpen(!isDrawerOpen)}
           className="fixed top-20 left-4 z-50 block lg:hidden bg-blue-950 text-white p-2 rounded-md transition-all duration-300"
@@ -21,9 +23,10 @@ const Dashboard = () => {
           {isDrawerOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
 
-        <div className="flex pt-16 min-h-[calc(100vh-4rem)]">
+        {/* Main Content Wrapper */}
+        <div className="flex flex-1 pt-16">
           {/* Fixed Sidebar (Desktop) */}
-          <div className="hidden lg:block fixed w-64 h-[calc(100vh-4rem)] bg-blue-950 z-40">
+          <div className="hidden lg:block fixed h-[calc(100vh-4rem-4rem)] w-64 bg-blue-950 z-40">
             <Drawer onToggle={() => setIsDrawerOpen(false)} />
           </div>
 
@@ -36,7 +39,7 @@ const Dashboard = () => {
             <Drawer onToggle={() => setIsDrawerOpen(false)} />
           </div>
 
-          {/* Overlay for mobile (click to close) */}
+          {/* Overlay for Mobile */}
           {isDrawerOpen && (
             <div
               className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
@@ -44,9 +47,9 @@ const Dashboard = () => {
             />
           )}
 
-          {/* Main Content (Offset for sidebar) */}
-          <div className="flex-1 lg:ml-64 overflow-auto">
-            <div className="p-4">
+          {/* Scrollable Content Area */}
+          <div className="flex-1 lg:ml-64 overflow-y-auto pb-16"> {/* pb-16 for footer space */}
+            <div className="p-4 min-h-[calc(100vh-8rem)]"> {/* Adjusted height */}
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="p-4">
                   <Outlet />
@@ -55,8 +58,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* Fixed Footer */}
+        <Footer className="lg:ml-64 fixed bottom-0 w-full lg:w-[calc(100%-16rem)]" />
       </ProtectedRoute>
-      <Footer />
     </div>
   );
 };
