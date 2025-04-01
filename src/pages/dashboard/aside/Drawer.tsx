@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { drawerData } from "../../../components/Drawer/drawerData";
+import {  X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -66,7 +67,7 @@ const Drawer: FC<DrawerProps> = ({ onToggle }) => {
       {/* Drawer Items */}
       <nav className="flex-1 overflow-y-auto">
         <ul className="px-2 py-4 space-y-1 list-none">
-     
+         
           {/* Add more menu items here */}
           {drawerData.filter(filterDrawerItems).map((item) => (
             <li key={item.id}>
