@@ -1,8 +1,5 @@
 import { FC } from 'react';
 import { drawerData } from "../../../components/Drawer/drawerData";
-import { LayoutDashboard,
-  //  ChevronsRight, ChevronsLeft,
-    X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
