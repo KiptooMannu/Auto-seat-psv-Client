@@ -22,25 +22,30 @@ const Dashboard = () => {
         </button>
 
         <div className="flex pt-16 min-h-[calc(100vh-4rem)]">
-          {/* Fixed Sidebar (Drawer) */}
-          <div 
-            className={`fixed lg:static w-64 h-[calc(100vh-4rem)] bg-blue-950 z-40 transform transition-transform duration-300 ${
-              isDrawerOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-            }`}
-          >
-            <Drawer onToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
+          {/* Fixed Sidebar (Desktop) */}
+          <div className="hidden lg:block fixed w-64 h-[calc(100vh-4rem)] bg-blue-950 z-40">
+            <Drawer onToggle={() => setIsDrawerOpen(false)} />
           </div>
 
-          {/* Overlay for mobile (only when drawer is open) */}
+          {/* Mobile Sidebar (Overlay) */}
+          <div
+            className={`lg:hidden fixed w-64 h-[calc(100vh-4rem)] bg-blue-950 z-40 transform transition-transform duration-300 ${
+              isDrawerOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
+          >
+            <Drawer onToggle={() => setIsDrawerOpen(false)} />
+          </div>
+
+          {/* Overlay for mobile (click to close) */}
           {isDrawerOpen && (
-            <div 
-              className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+            <div
+              className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
               onClick={() => setIsDrawerOpen(false)}
             />
           )}
 
-          {/* Scrollable Main Content */}
-          <div className="flex-1 overflow-auto lg:ml-64">
+          {/* Main Content (Offset for sidebar) */}
+          <div className="flex-1 lg:ml-64 overflow-auto">
             <div className="p-4">
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="p-4">
