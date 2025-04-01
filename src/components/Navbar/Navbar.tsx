@@ -91,7 +91,7 @@ const Navbar: React.FC = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="navbar bg-white text-black shadow-md h-16 px-4 md:px-12 relative"
+      className="navbar bg-white text-black shadow-md h-16 px-4 md:px-12 fixed top-0 left-0 right-0 z-50"
     >
       <div className="flex justify-between items-center w-full mx-auto">
         {/* Title */}
