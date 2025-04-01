@@ -69,12 +69,7 @@ const Drawer: FC<DrawerProps> = ({ onToggle }) => {
       {/* Drawer Items */}
       <nav className="flex-1 overflow-y-auto">
         <ul className="px-2 py-4 space-y-1 list-none">
-          <li>
-            <Link to="/dashboard" className="flex items-center px-4 py-3 text-white hover:bg-blue-800 rounded-md transition-colors">
-              <LayoutDashboard className="w-5 h-5 mr-3" />
-              <span>Dashboard</span>
-            </Link>
-          </li>
+     
           {/* Add more menu items here */}
           {drawerData.filter(filterDrawerItems).map((item) => (
             <li key={item.id}>
